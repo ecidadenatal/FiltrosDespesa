@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<modification>
+  <name>Filtro da Despesa</name>
+  <ecidade-version>2.3.36</ecidade-version>
+
+  <file path='func_empempenho.php'>
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+          $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+            db_getsession('DB_id_usuario'),
+            db_getsession('DB_anousu'),
+            PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+          );
+          if (!empty($sWhereDotacoes)) {
+            $dbwhere .= " and " . $sWhereDotacoes;
+          }
+        ]]></add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa - Parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[
+             $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+              db_getsession('DB_id_usuario'),
+              db_getsession('DB_anousu'),
+              PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+            );
+            if (!empty($sWhereDotacoes)) {
+              $sSql .= " and " . $sWhereDotacoes;
+            }
+        ]]></add>
+    </operation>
+  </file>
+  <file path='func_empautoriza.php'>
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+        );
+
+        if (!empty($sWhereDotacoes)) {
+
+          if (isset($where_anul)) {
+            $where_anul .= " and ";
+          }
+          $where_anul .= $sWhereDotacoes;
+        }
+        ]]></add>
+    </operation>
+  </file>
+  <file path='emp4_agendaPagamentoRPC.php'>
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+        );
+
+        if (!empty($sWhereDotacoes)) {
+          $sWhere .= " and " . $sWhereDotacoes;
+        }
+        ]]></add>
+    </operation>
+  </file>
+  <file path="func_pagordemele.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+        $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+        );
+
+        if (!empty($sWhereDotacoes)) {
+          $where_instit .= " and " . $sWhereDotacoes;
+        }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="emp1_empconsulta002.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+      $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+        db_getsession('DB_id_usuario'),
+        db_getsession('DB_anousu'),
+        PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+      );
+
+      if (!empty($sWhereDotacoes)) {
+
+        $aSql     = explode("order by", $sql);
+        $aSql[0] .= " and " . $sWhereDotacoes;
+        $sql      = implode('order by', $aSql);
+      }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_empprestamovimento.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+        );
+
+        if (!empty($sWhereDotacoes)) {
+          $sWhereComplementar .= " and " . $sWhereDotacoes;
+        }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_emppresta.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+          $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+        );
+
+        if (!empty($sWhereDotacoes)) {
+          $sWhereComplementar .= " and " . $sWhereDotacoes;
+        }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_empprestaconfere.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+          $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+            db_getsession('DB_id_usuario'),
+            db_getsession('DB_anousu'),
+            PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+          );
+
+          if (!empty($sWhereDotacoes)) {
+            $dbwhere .= " and " . $sWhereDotacoes;
+          }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_selempautoriza.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+      $sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+                                                                            db_getsession('DB_id_usuario'),
+                                                                            db_getsession('DB_anousu'),
+                                                                            PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+                                                                            null
+                                                                        );
+      $dbwhere.= " and (({$sWhereDotacao}) or e56_coddot is null) ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_orcdotacao.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+            $aDotacoes = PermissaoUsuarioEmpenho::getDotacoesUsuario(
+              db_getsession('DB_id_usuario'),
+              db_getsession('DB_anousu'),
+              PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+              null
+            );
+            $aSql     = explode('order by', $sql);
+            $aSql[0] .= " and o58_coddot in (" . implode(', ', $aDotacoes) . ") ";
+            $sql      = implode('order by', $aSql);
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_empempenhorp.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+        );
+        if (!empty($sDotacoes)) {
+          $dbwhere .= " and {$sDotacoes} ";
+        }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="func_orcreserva.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $aDotacoes = PermissaoUsuarioEmpenho::getDotacoesUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+          null
+        );
+        $sql = "select * from ({$sql}) as filtro_empenho where filtro_empenho.o80_coddot in (".implode(',', $aDotacoes).")";
+        ]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - Parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[
+            $aDotacoes = PermissaoUsuarioEmpenho::getDotacoesUsuario(
+              db_getsession('DB_id_usuario'),
+              db_getsession('DB_anousu'),
+              PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+              null
+            );
+            $sql .= " and orcdotacao.o58_coddot in (".implode(',', $aDotacoes).") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="emp4_gerarslipRPC.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+    $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+      db_getsession('DB_id_usuario'),
+      db_getsession('DB_anousu'),
+      PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+    );
+    if (!empty($sDotacoes)) {
+      $sWhere .= " and {$sDotacoes} ";
+    }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="orc1_orcreservager002.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+  $sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+    db_getsession('DB_id_usuario'),
+    db_getsession('DB_anousu'),
+      PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+  );
+
+  if (!empty($sWhereDotacao)) {
+    $sql .= " and {$sWhereDotacao} ";
+  }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_pagordem.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+      $sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+        db_getsession('DB_id_usuario'),
+        db_getsession('DB_anousu'),
+        PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+      );
+
+      if (!empty($sWhereDotacao)) {
+        $dbwhere .= " and {$sWhereDotacao} ";
+      }
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - Parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[
+          $sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+            db_getsession('DB_id_usuario'),
+            db_getsession('DB_anousu'),
+            PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+          );
+
+          if (!empty($sWhereDotacao)) {
+            $sSql .= " and {$sWhereDotacao} ";
+          }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="orc1_orcreservager003.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+  $sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+    db_getsession('DB_id_usuario'),
+    db_getsession('DB_anousu'),
+    PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+  );
+
+  if (!empty($sWhereDotacao)) {
+
+    $aBuscaPadrao = explode("where", strtolower($sql));
+
+    $aBuscaPadrao[0] .= " inner join orcprojativ on orcprojativ.o55_projativ = orcreserprev.o33_projativ ";
+    $aBuscaPadrao[0] .= "                       and orcprojativ.o55_anousu   = orcreserprev.o33_anousu   ";
+    $aBuscaPadrao[0] .= " inner join orcdotacao on orcdotacao.o58_projativ = orcprojativ.o55_projativ    ";
+    $aBuscaPadrao[0] .= "                      and orcdotacao.o58_anousu   = orcprojativ.o55_anousu      ";
+
+    $sql  = implode('where', $aBuscaPadrao);
+    $sql .= " and {$sWhereDotacao} ";
+  }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="orc1_orcreservager012.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+$sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+    db_getsession('DB_id_usuario'),
+    db_getsession('DB_anousu'),
+    PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+  );
+
+if (!empty($sWhereDotacao)) {
+
+  $aWhereDotacao = explode("where", $sql);
+  $aWhereDotacao[count($aWhereDotacao)-1] = " {$sWhereDotacao} and " . $aWhereDotacao[count($aWhereDotacao)-1];
+  $sql = implode("where", $aWhereDotacao);
+}
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_orcreservaautnota.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+      $sWhereDotacao = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+        );
+
+      if (!empty($sWhereDotacao)) {
+        $dbwhere .= " and {$sWhereDotacao} ";
+      }
+      ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="model/agendaPagamento.model.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+    $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+      db_getsession('DB_id_usuario'),
+      db_getsession('DB_anousu'),
+      PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO
+    );
+    if (!empty($sDotacoes)) {
+      $sWhere .= " and {$sDotacoes} ";
+    }
+        ]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - getContasRecurso */]]></search>
+      <add position="after">
+        <![CDATA[
+    $aContasPermitidas = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+    $sSqlContas = "select * from ({$sSqlContas}) as w where w.e83_conta in (".implode(',', $aContasPermitidas).")";
+        ]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa getMovimentosSlip */]]></search>
+      <add position="after">
+        <![CDATA[
+    $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+      db_getsession('DB_id_usuario'),
+      db_getsession('DB_anousu'),
+      PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+    );
+    if (!empty($sDotacoes)) {
+      $sSqlMovimentos .= " and {$sDotacoes} ";
+    }
+        ]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - getSlips */]]></search>
+      <add position="after">
+        <![CDATA[
+        $aContasPermitidas = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+        $aSlipsPagamento   = array(1, 2, 5, 9, 10, 13, 14);
+        $aSlipsRecebimento = array(3, 4, 7, 8, 11, 12);
+        if (in_array($oSlip->k152_sequencial, $aSlipsPagamento) && !in_array($oSlip->k17_credito, $aContasPermitidas)) {
+          continue;
+        } else if (in_array($oSlip->k152_sequencial, $aSlipsRecebimento)&& !in_array($oSlip->k17_debito, $aContasPermitidas)) {
+          continue;
+        }
+        ]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa getMovimentosSlip */]]></search>
+      <add position="after">
+        <![CDATA[
+    $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+      db_getsession('DB_id_usuario'),
+      db_getsession('DB_anousu'),
+      PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+    );
+    if (!empty($sDotacoes)) {
+      $sSqlMovimentos .= " and {$sDotacoes} ";
+    }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="emp4_empageforma001_ordem.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+    $aContasPermitidas = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+    $sSqlContas = "select * from ({$sSqlContas}) as w where w.e83_conta in (".implode(',', $aContasPermitidas).")";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="forms/db_frmgerarslipretencaofolha.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+$aContasPermitidas = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+$sqlsaltes = "select * from ({$sqlsaltes}) as w where w.k13_conta in (".implode(',', $aContasPermitidas).") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_empagemov.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+          $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+            db_getsession('DB_id_usuario'),
+            db_getsession('DB_anousu'),
+            PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+          );
+
+          if (!empty($sDotacoes)) {
+            $aWhere = explode("where", strtolower($sql));
+            $aWhere[count($aWhere) - 1] = " " . $sDotacoes . " and " . $aWhere[count($aWhere) - 1];
+            $sql = implode("where", $aWhere);
+          }
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="func_empagemov_prestacao.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+         $sDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+                    db_getsession('DB_id_usuario'),
+                    db_getsession('DB_anousu'),
+                    PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+                  );
+
+        if (!empty($sDotacoes)) {
+          $aWheres[] = $sDotacoes;
+        }
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="cai1_saltes001.php">
+    <operation>
+      <search><![CDATA[/** [ExtensaoFiltroDespesa] Modificacao 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+  if (!$erro) {
+
+    try {
+
+      PermissaoUsuarioConta::salvarVinculos($k13_reduz, empty($oPost->departamentos) ? array() : explode(",", $oPost->departamentos));
+
+    } catch (Exception $eErro) {
+
+      $clsaltes->erro_status = 0;
+      $clsaltes->erro_msg = $eErro->getMessage();
+      $erro = true;
+      $sqlerro = true;
+    }
+  }
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="cai1_saltes002.php">
+    <operation>
+      <search><![CDATA[/** [ExtensaoFiltroDespesa] Modificacao 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+  if (!$sqlerro) {
+
+    try {
+
+      PermissaoUsuarioConta::salvarVinculos($k13_reduz, empty($oPost->departamentos) ? array() : explode(",", $oPost->departamentos));
+
+    } catch (Exception $eErro) {
+
+      $clsaltes->erro_status = 0;
+      $clsaltes->erro_msg = $eErro->getMessage();
+      $sqlerro = true;
+    }
+  }
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[include("forms/db_frmsaltes.php");]]></search>
+      <add position="replace">
+        <![CDATA[include(Modification::getFile("forms/db_frmsaltes.php")); ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="cai1_saltes003.php">
+    <operation>
+      <search><![CDATA[/** [ExtensaoFiltroDespesa] Modificacao 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+             $oDaoSaltesDepart = new cl_saltesdepart();
+         $oDaoSaltesDepart->excluir(null, "saltes = {$k13_reduz}");
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[include("forms/db_frmsaltes.php");]]></search>
+      <add position="replace">
+        <![CDATA[include(Modification::getFile("forms/db_frmsaltes.php")); ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="forms/db_frmsaltes.php">
+    <operation>
+      <search><![CDATA[<!--[ExtensaoFiltroDespesa] Alteracao 1 -->]]></search>
+      <add position="after">
+        <![CDATA[
+            <input type="hidden" value="" id="departamentos" name="departamentos"/>
+            <div id="ctnLancadorDepartamento" style="width:100%">
+            </div>
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/** [ExtensaoFiltroDespesa] Alteracao 2 --> */]]></search>
+      <add position="after">
+        <![CDATA[
+  require_once('scripts/widgets/DBLancador.widget.js');
+  require_once('scripts/AjaxRequest.js');
+  var oLancador = new DBLancador('oLancador');
+  oLancador.setNomeInstancia('oLancador');
+  oLancador.setLabelAncora('Departamento: ');
+  oLancador.setLabelValidacao('Departamento');
+  oLancador.setParametrosPesquisa('func_db_depart.php', ['coddepto', 'descrdepto']);
+  oLancador.setGridHeight(100);
+  oLancador.setTextoFieldset("Departamentos Permitidos");
+  <?php
+    if (!in_array($db_opcao, array(1, 11, 2, 22))) {
+      echo "oLancador.setHabilitado(false);";
+    }
+  ?>
+  oLancador.show($('ctnLancadorDepartamento'));
+
+  function carregarDepartamento() {
+
+    var aRegistros = oLancador.getRegistros(false);
+
+    var sVirgula = "";
+    var sValores = "";
+    aRegistros.each(
+      function (oInstituicao) {
+        sValores += sVirgula+""+oInstituicao.sCodigo;
+        sVirgula = ",";
+      }
+    );
+    $('departamentos').value = sValores;
+    return true;
+  }
+
+  function carregarDepartamentosCadastrados() {
+
+    var oReduzido = $('k13_reduz');
+    if (oReduzido.value != "") {
+
+      new AjaxRequest(
+        'cai1_filtrodespesacontabancaria.RPC.php',
+        {exec:'getDepartamentosDaContaBancaria', k13_conta: oReduzido.value},
+        function(oRetorno, lErro) {
+
+          var aDepartamentos = [];
+          oRetorno.departamentos.each(
+            function (oDepartamento) {
+              oLancador.adicionarRegistro(oDepartamento.coddepto, oDepartamento.descrdepto.urlDecode());
+            }
+          );
+        }
+      ).setMessage("Aguarde, carregando departamentos...").execute();
+    }
+  }
+  carregarDepartamentosCadastrados();
+
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[<form name="form1" method="post" action="">]]></search>
+      <add position="replace">
+        <![CDATA[
+<form name="form1" method="post" onsubmit="return carregarDepartamento()" action="">
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_saltesreduz.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+      if (!empty($filtro_departamento)) {
+
+        $aDepartamentos = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+        $dbwhere .= " and k13_conta in (" . implode(', ', $aDepartamentos) . ")";
+      }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_saltesrecurso.php">
+    <operation>
+      <search><![CDATA[/** [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $aContasPermitidas = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+        $sql = "select * from ({$sql}) as w where w.k13_reduz in (".implode(',', $aContasPermitidas).")";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="scripts/classes/DBViewSlipPagamento.classe.js">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+  switch (iTipoTransferencia) {
+
+    /*
+     * Transferencia Financeira
+     */
+    case 1: // Pagamento
+    case 2: // Estorno Pagamento
+
+      me.sPesquisaContaCredito = "SaltesDepart";
+    break;
+
+    case 3: // Recebimento
+    case 4: // Estorno Recebimento
+
+      me.sPesquisaContaDebito  = "SaltesDepart";
+    break;
+
+    /*
+     * Transferencia Bancaria
+     */
+    case 5: // Inclusao
+    case 6: // Estorno
+
+      me.sPesquisaContaCredito = "SaltesDepart";
+    break;
+
+    /*
+     * Caucao Recebimento
+     */
+    case 7: // inclusao
+    case 8: // estorno
+
+      me.sPesquisaContaDebito  = "SaltesDepart";
+    break;
+
+    /*
+     * Caucao Devolucao
+     */
+    case 9: // inclusao
+    case 10: // estorno
+
+      me.sPesquisaContaCredito = "SaltesDepart";
+    break;
+
+    /*
+     * Dep. Diversas Origens
+     */
+    case 11: // Recebimento
+    case 12: // Estorno Recebimento
+
+      me.sPesquisaContaDebito  = "SaltesDepart";
+    break;
+
+    case 13: // Pagamento
+    case 14: // Estorno Pagamento
+
+      me.sPesquisaContaCredito = "SaltesDepart";
+
+    break;
+  }
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[
+  me.pesquisaContaSaltesDepart = function (lMostra, lCredito) {
+
+    /**
+     * Controla que função chamar para completar os campos
+     * e também para pegar o valor do input certo
+     */
+    var sFunctionCompleta = "Debito";
+    var sIframe           = me.sPesquisaContaDebito;
+    if (lCredito) {
+
+      sFunctionCompleta = "Credito";
+      sIframe           = me.sPesquisaContaCredito;
+    }
+
+    var sObjetoTxtConta = "me.oTxtConta" + sFunctionCompleta + "Codigo";
+    var oTxtConta       = eval(sObjetoTxtConta);
+
+    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
+    }
+
+    js_OpenJanelaIframe("", 'db_iframe_'+sIframe, sUrlSaltes, "Pesquisa Contas", lMostra);
+  };
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_sliptipovinculo.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+
+$sCampoFiltroConta = '';
+
+switch ($iTipoOperacao) {
+
+  /*
+   * Transferencia Financeira
+   */
+  case 1:
+    $sCampoFiltroConta = "k17_credito";
+  break;
+
+  /*
+   * Transferencia Bancaria
+   */
+  case 5:
+    $sCampoFiltroConta = "k17_credito";
+  break;
+
+  /*
+   * Caucao Recebimento
+   */
+  case 7:
+    $sCampoFiltroConta = "k17_debito";
+  break;
+
+  /*
+   * Caucao Devolucao
+   */
+  case 9:
+    $sCampoFiltroConta = "k17_credito";
+  break;
+
+  /*
+   * Dep. Diversas Origens
+   */
+  case 11:
+    $sCampoFiltroConta = "k17_debito";
+  break;
+
+  case 13:
+    $sCampoFiltroConta = "k17_credito";
+  break;
+}
+
+$aContasDepartamento = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[
+  if (!empty($sCampoFiltroConta)) {
+    $sql .= " and {$sCampoFiltroConta} in (" . implode(', ', $aContasDepartamento) . ")";
+  }
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 3 */]]></search>
+      <add position="after">
+        <![CDATA[
+    if (!empty($sCampoFiltroConta)) {
+      $sSql .= " and {$sCampoFiltroConta} in (" . implode(', ', $aContasDepartamento) . ")";
+    }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="forms/db_frmmanutencaoagenda.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+                          $aContasUsuario = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+                          $sWhere = " k13_reduz in (".implode(', ', $aContasUsuario).") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_slipAutenticacao.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+$aContasDepartamento = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+$where_instit .= " and (case when k152_sequencial in (3, 4, 7, 8, 11, 12) then k17_debito else k17_credito end) in (" . implode(', ', $aContasDepartamento) . ") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="scripts/classes/DBViewSlipRecebimento.classe.js">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+  me.sPesquisaContaDebito  = "SaltesDepart";
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[
+  me.pesquisaContaSaltesDepart = function (lMostra, lCredito) {
+
+    /**
+     * Controla que função chamar para completar os campos
+     * e também para pegar o valor do input certo
+     */
+    var sFunctionCompleta = "Debito";
+    var sIframe           = me.sPesquisaContaDebito;
+    if (lCredito) {
+
+      sFunctionCompleta = "Credito";
+      sIframe           = me.sPesquisaContaCredito;
+    }
+
+    var sObjetoTxtConta = "me.oTxtConta" + sFunctionCompleta + "Codigo";
+    var oTxtConta       = eval(sObjetoTxtConta);
+
+    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
+    }
+
+    js_OpenJanelaIframe("", 'db_iframe_'+sIframe, sUrlSaltes, "Pesquisa Contas", lMostra);
+  };
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="cai4_transferencia.RPC.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+      $aContasDepartamento  = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+      $sWhere              .= " and slip.k17_debito in (" . implode(', ', $aContasDepartamento) . ") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_saltes.php">
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] - modificacao 1 */]]></search>
+      <add position="after">
+        <![CDATA[
+        if (empty($sem_filtro_departamento) && !isset($lIgnorarFiltroDespesa)) {
+
+          $aDepartamentos = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
+          $dbwhere .= " and k13_conta in (" . implode(', ', $aDepartamentos) . ")";
+        }
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="func_placaixa.php">
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] Modificacao 1*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $aContas   = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+          $sStringIn = implode(", ", $aContas);
+          $sWhere   .= " and not exists (select 1 from placaixarec where k81_codpla = k80_codpla and k81_conta not in($sStringIn))";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="func_placaixaaut.php">
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] Modificacao 1*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $aContas   = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+          $sStringIn = implode(", ", $aContas);
+          $sWhere   .= " and not exists (select 1 from placaixarec where k81_codpla = k80_codpla and k81_conta not in($sStringIn))";
+
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="cai4_arrecada002.php">
+    <operation>
+      <search><![CDATA[/** [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+  $aContaTesouraria = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+  $sql = "select * from ({$sql}) as w where w.c01_reduz in (".implode(',', $aContaTesouraria).") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="cai4_arrecada005.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+$aContaTesouraria = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+$sql_conta = "select * from ({$sql_conta}) as w where w.c01_reduz in (".implode(',', $aContaTesouraria).") ";
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa - Classificacao */]]></search>
+      <add position="after">
+        <![CDATA[
+$sContasTesouraria = " and saltes.k13_conta in (".implode(',', $aContaTesouraria).")";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="forms/db_frmpagamentoagenda.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+        $aContaTesouraria = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+        $dbwhere = " saltes.k13_reduz in (".implode(',', $aContaTesouraria).") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path="emp4_empagepagamento001_banco.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] - Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+          $aContaTesouraria = PermissaoUsuarioConta::getContasUsuario(db_getsession('DB_id_usuario'));
+          $dbwhere .= " and saltes.k13_reduz in (".implode(',', $aContaTesouraria).") ";
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="orc1_orcsuplem001.php">
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] - Modificacao 1*/]]></search>
+      <add position="after">
+        <![CDATA[
+          $aDotacoes = PermissaoUsuarioEmpenho::getDotacoesUsuario(
+                db_getsession('DB_id_usuario'),
+                db_getsession('DB_anousu'),
+                PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+                null
+              );
+
+             $sDotacoes = implode(",", $aDotacoes);
+             $sCampos .= ", (select count(*) from orcsuplemval where o47_codsup = o46_codsup) as total_dotacoes";
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] - Modificacao 2*/]]></search>
+      <add position="after">
+        <![CDATA[
+           $sWherePermissoes         = "o47_codsup = {$o46_codsup} ";
+           $sWherePermissoes        .= " and o47_coddot in({$sDotacoes})";
+           $sSqlDotacoesComPermissao = $oDaoOrcSuplemVal->sql_query_file(null, null, null, "count(*) as total_permissoes",
+                                                                         null, $sWherePermissoes
+                                                                        );
+
+           $rsDotacoesComPermissao  = $oDaoOrcSuplemVal->sql_record($sSqlDotacoesComPermissao);
+           if ($rsDotacoesComPermissao) {
+             $iTotalPermissoes = db_utils::fieldsMemory($rsDotacoesComPermissao, 0)->total_permissoes;
+             if ($total_dotacoes != $iTotalPermissoes) {
+               continue;
+             }
+           }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="orc4_suplementacoes.RPC.php">
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] - Modificacao 1*/]]></search>
+      <add position="after">
+        <![CDATA[
+            $aDotacoes = PermissaoUsuarioEmpenho::getDotacoesUsuario(
+              db_getsession('DB_id_usuario'),
+              db_getsession('DB_anousu'),
+              PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+              null
+            );
+
+            $sDotacoes = implode(",", $aDotacoes);
+            $sCampos  .= ", (select count(*) from orcsuplemval where o47_codsup = o46_codsup) as total_dotacoes";
+          ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[/** [Extensao FiltroDespesa] - Modificacao 2*/]]></search>
+      <add position="after">
+        <![CDATA[
+            $sWherePermissoes         = "o47_codsup = {$iSuplementacao} ";
+            $sWherePermissoes        .= " and o47_coddot in({$sDotacoes})";
+            $sSqlDotacoesComPermissao = $oDaoOrcSuplemVal->sql_query_file(null, null, null, "count(*) as total_permissoes",
+              null, $sWherePermissoes
+            );
+
+            $rsDotacoesComPermissao  = $oDaoOrcSuplemVal->sql_record($sSqlDotacoesComPermissao);
+            if ($rsDotacoesComPermissao) {
+              $iTotalPermissoes = db_utils::fieldsMemory($rsDotacoesComPermissao, 0)->total_permissoes;
+              if ($oStdSuplementacao->total_dotacoes != $iTotalPermissoes) {
+                continue;
+              }
+            }
+          ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="emp4_ordemPagamentoRPC.php">
+    <operation>
+      <search><![CDATA[/* [Extensão] Filtro da Despesa */]]></search>
+      <add position="after">
+        <![CDATA[
+    if($oParam->iTipoConsulta == 1) {
+      $sWhereDotacoes = PermissaoUsuarioEmpenho::getDotacoesPorAnoDoUsuario(
+        db_getsession('DB_id_usuario'),
+        db_getsession('DB_anousu'),
+        PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO_CONSULTA
+      );
+      if (!empty($sWhereDotacoes)) {
+        $sWhere .= " and {$sWhereDotacoes} ";
+      }
+    }
+        ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path="forms/db_frmdespsuplem.php">
+  <operation>
+    <search><![CDATA[/** [Extensao FiltroDespesa] - Modificacao 1*/]]></search>
+    <add position="after">
+      <![CDATA[
+            $aDotacoes = PermissaoUsuarioEmpenho::getDotacoesUsuario(
+          db_getsession('DB_id_usuario'),
+          db_getsession('DB_anousu'),
+          PermissaoUsuarioEmpenho::PERMISSAO_MANUTENCAO,
+          null
+        );
+
+        $sDotacoes = implode(",", $aDotacoes);
+        $sSqlSupletacoesPermitidas  = "select * ";
+        $sSqlSupletacoesPermitidas .= "  from ({$sql}) as x ";
+        $sSqlSupletacoesPermitidas .= " where total_dotacoes = (select count(o47_coddot) ";
+        $sSqlSupletacoesPermitidas .= "                           from orcsuplemval ";
+        $sSqlSupletacoesPermitidas .= "                          where o47_coddot in({$sDotacoes})";
+        $sSqlSupletacoesPermitidas .= "                            and x.o46_codsup = o47_codsup)";
+
+        $sql = $sSqlSupletacoesPermitidas;
+          ]]>
+    </add>
+  </operation>
+  </file>
+</modification>

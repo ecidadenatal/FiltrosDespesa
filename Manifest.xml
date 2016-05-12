@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <plugin name="FiltrosDespesa" label="Filtros da Despesa" plugin-version="1.1" ecidade-version="2.3.35" id-modulo="1">
+    <files>
+      <file name="PermissaoUsuarioEmpenho.model.php" path="/model/empenho/PermissaoUsuarioEmpenho.model.php" />
+      <file name="PermissaoUsuarioConta.model.php" path="/model/caixa/PermissaoUsuarioConta.model.php" />
+      <file name="db_saltesdepart_classe.php" path="/classes/db_saltesdepart_classe.php" />
+      <file name="EmissaoNotaEmpenho.xml"  path="/modification/xml/FiltroDespesa.xml" />
+      <file name="cai1_filtrodespesacontabancaria.RPC.php"  path="/cai1_filtrodespesacontabancaria.RPC.php" />
+    </files>
+    <estrutura install="/instalacao.sql" uninstall="/desinstalacao.sql">
+      <estrutura file="/versao_1_1.sql" version="1.1"/>
+    </estrutura>
+  </plugin>
+</manifest>
