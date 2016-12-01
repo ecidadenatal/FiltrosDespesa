@@ -980,7 +980,7 @@ $where_instit .= " and (case when k152_sequencial in (3, 4, 7, 8, 11, 12) then k
       <search><![CDATA[/** [Extensao FiltroDespesa] - modificacao 1 */]]></search>
       <add position="after">
         <![CDATA[
-        if (empty($sem_filtro_departamento) && !isset($lIgnorarFiltroDespesa)) {
+        if (empty($sem_filtro_departamento)) {
 
           $aDepartamentos = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
           $dbwhere .= " and k13_conta in (" . implode(', ', $aDepartamentos) . ")";

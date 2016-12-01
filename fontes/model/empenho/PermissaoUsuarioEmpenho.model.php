@@ -55,6 +55,7 @@ class PermissaoUsuarioEmpenho {
 
     $aDotacoes         = array(0);
     $oPermissaoUsuario = new cl_permusuario_dotacao($iAno, $iUsuario, null, null, null, $sTipoPermissao, null, $sWhere);
+    
     $rsQuery           = $oPermissaoUsuario->recordset;
     if ($rsQuery) {
 
