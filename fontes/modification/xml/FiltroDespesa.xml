@@ -127,6 +127,8 @@
         if (!empty($sWhereDotacoes)) {
           $sWhereComplementar .= " and " . $sWhereDotacoes;
         }
+        
+        $sWhereComplementar .= " or ((select aprovado from plugins.empprestaaprovacao where emppresta = e45_sequencial order by sequencial desc limit 1) is false)";
         ]]>
       </add>
     </operation>
@@ -789,6 +791,16 @@ $sqlsaltes = "select * from ({$sqlsaltes}) as w where w.k13_conta in (".implode(
       </add>
     </operation>
     <operation>
+      <search regex="true" flag="U"><![CDATA[var\s*sUrlSaltes\s*=((\n*.*)*)}]]></search>
+      <add>
+        <![CDATA[var completaQuery = iTipoTransferencia == 5 && iOpcao == 1 && lCredito == false ? "&filtro_favorecido="+me.oTxtFavorecidoInputCodigo.getValue() : "";
+    var sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta+completaQuery;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr&filtro_fornecedor="+completaQuery;
+    }]]>
+      </add>
+    </operation>
+    <operation>
       <search><![CDATA[/* [Extensão] - Filtro da Despesa - parte 2 */]]></search>
       <add position="after">
         <![CDATA[
@@ -809,9 +821,10 @@ $sqlsaltes = "select * from ({$sqlsaltes}) as w where w.k13_conta in (".implode(
     var sObjetoTxtConta = "me.oTxtConta" + sFunctionCompleta + "Codigo";
     var oTxtConta       = eval(sObjetoTxtConta);
 
-    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
+    var completaQuery = iTipoTransferencia == 5 && iOpcao == 1 && lCredito == false? "&filtro_favorecido="+me.oTxtFavorecidoInputCodigo.getValue() : "";
+    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta+completaQuery;
     if (lMostra) {
-      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
+      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr"+completaQuery;
     }
 
     js_OpenJanelaIframe("", 'db_iframe_'+sIframe, sUrlSaltes, "Pesquisa Contas", lMostra);
@@ -980,7 +993,7 @@ $where_instit .= " and (case when k152_sequencial in (3, 4, 7, 8, 11, 12) then k
       <search><![CDATA[/** [Extensao FiltroDespesa] - modificacao 1 */]]></search>
       <add position="after">
         <![CDATA[
-        if (empty($sem_filtro_departamento)) {
+        if (empty($sem_filtro_departamento) && !isset($lIgnorarFiltroDespesa)) {
 
           $aDepartamentos = PermissaoUsuarioConta::getContasUsuario(db_getsession("DB_id_usuario"));
           $dbwhere .= " and k13_conta in (" . implode(', ', $aDepartamentos) . ")";
