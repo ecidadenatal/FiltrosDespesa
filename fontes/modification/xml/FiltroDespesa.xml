@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <modification>
   <name>Filtro da Despesa</name>
+  <id>FiltroDespesa</id>
   <ecidade-version>2.3.36</ecidade-version>
 
   <file path='func_empempenho.php'>
